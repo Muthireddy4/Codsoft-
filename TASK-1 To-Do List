@@ -1,0 +1,63 @@
+# To-Do List Application
+
+tasks = []
+
+def show_menu():
+    print("Menu:")
+    print("1. Add task")
+    print("2. View tasks")
+    print("3. Mark task as done")
+    print("4. Delete task")
+    print("5. Exit")
+    print()
+
+def add_task():
+    task = input("Enter task: ")
+    tasks.append({"task": task, "done": False})
+    print("Task added.\n")
+
+def view_tasks():
+    if not tasks:
+        print("No tasks.")
+    else:
+        for index, task in enumerate(tasks, start=1):
+            status = "Done" if task["done"] else "To-Do"
+            print(f"{index}. {task['task']} - {status}")
+    print()
+
+def mark_task_done():
+    view_tasks()
+    try:
+        index = int(input("Enter task number to mark as done: ")) - 1
+        tasks[index]["done"] = True
+        print("Task marked as done.\n")
+    except (IndexError, ValueError):
+        print("Invalid input. Please enter a valid task number.\n")
+
+def delete_task():
+    view_tasks()
+    try:
+        index = int(input("Enter task number to delete: ")) - 1
+        del tasks[index]
+        print("Task deleted.\n")
+    except (IndexError, ValueError):
+        print("Invalid input. Please enter a valid task number.\n")
+
+# Main loop
+while True:
+    show_menu()
+    choice = input("Enter your choice: ")
+
+    if choice == '1':
+        add_task()
+    elif choice == '2':
+        view_tasks()
+    elif choice == '3':
+        mark_task_done()
+    elif choice == '4':
+        delete_task()
+    elif choice == '5':
+        print("Exiting program. Goodbye!")
+        break
+    else:
+        print("Invalid choice. Please enter a number from the menu.\n")
